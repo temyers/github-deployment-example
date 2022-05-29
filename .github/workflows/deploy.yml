@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency: 
+  # limit concurrency to the workflow level
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   deploy-CI:
     name: Deploy-CI
@@ -31,6 +35,7 @@ jobs:
     name: Deploy-NonProd
     runs-on: ubuntu-latest
     environment: nonprod
+    needs: deploy-CI
 
     steps:
     - name: Checkout
@@ -48,6 +53,7 @@ jobs:
     name: Deploy-Production
     runs-on: ubuntu-latest
     environment: production
+    needs: deploy-nonprod
 
     steps:
     - name: Checkout
