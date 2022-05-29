@@ -10,10 +10,44 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  deploy-CI:
     name: Deploy-CI
     runs-on: ubuntu-latest
     environment: CI
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: deploy
+      run: |
+        echo "deploying to environment... "
+        cat infrastructure/deployment.txt
+
+    - name: verify
+      run: |
+        echo "running post deployment checks..."
+  deploy-nonprod:
+    name: Deploy-NonProd
+    runs-on: ubuntu-latest
+    environment: nonprod
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: deploy
+      run: |
+        echo "deploying to environment... "
+        cat infrastructure/deployment.txt
+
+    - name: verify
+      run: |
+        echo "running post deployment checks..."
+  deploy-production:
+    name: Deploy-Production
+    runs-on: ubuntu-latest
+    environment: production
 
     steps:
     - name: Checkout
