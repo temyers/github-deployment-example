@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy-CI
     runs-on: ubuntu-latest
     environment: CI
 
