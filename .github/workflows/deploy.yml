@@ -1,0 +1,32 @@
+# "Deploy" to an environment
+name: Dummy workflow to simulate deploying to an environment
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: 
+    - CI
+    - nonprod
+    - production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: deploy
+      run: |
+        echo "deploying to environment... "
+        cat infrastructure/deployment.txt
+
+    - name: verify
+      run: |
+        echo "running post deployment checks..."
