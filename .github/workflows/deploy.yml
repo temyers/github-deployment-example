@@ -67,3 +67,5 @@ jobs:
     - name: verify
       run: |
         echo "running post deployment checks..."
+        echo "post deployment checks failed"
+        exit 1
